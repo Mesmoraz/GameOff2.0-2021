@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
 
     public float speed;
     public bool eggHeld;
+    public bool facingLeft;
+
     private Vector2 currentState;
     public Rigidbody2D enemyRigidBody2D;
     private float direction;
@@ -64,18 +66,34 @@ public class Enemy : MonoBehaviour
         {
             
             Vector3 enemyDirectionLocal = GameObject.Find("Egg").transform.InverseTransformPoint(transform.position);
-
+            
+            // Flip enemy to face left when moving left
             if (enemyDirectionLocal.x > 0)
             {
                 //Debug.Log("LEFT");
+                anim.SetBool("isWalking", true);
                 transform.Translate(Vector2.left * enemySpeed * Time.deltaTime);
-
+                transform.localScale = new Vector2(-currentState.x, currentState.y);
+                facingLeft = true;
 
             }
             else if (enemyDirectionLocal.x < 0)
             {
                 // Debug.Log("RIGHT");
                 transform.Translate(Vector2.right * enemySpeed * Time.deltaTime);
+                if (facingLeft)
+                {
+                    Debug.Log("We're facing left");
+                    //Flip to the right
+                    transform.localScale = new Vector2(-currentState.x, currentState.y);
+                    facingLeft = false;
+                }             
+         
+                anim.SetBool("isWalking", true);
+            }
+            else
+            {
+                anim.SetBool("isWalking", false);
             }
         }
 

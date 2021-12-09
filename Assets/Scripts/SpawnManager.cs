@@ -8,8 +8,8 @@ public class SpawnManager : MonoBehaviour
     private Vector2 spawnPos = new Vector2(30, 0);
 
     // Test values 
-    private float startDelay = 2;
-    private float repeatRate = 0;
+    private float startDelay = 2f;
+    private float repeatRate = 1f;
 
     // Start is called before the first frame update
     void Start()
